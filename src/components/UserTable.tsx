@@ -1,3 +1,4 @@
+import React from "react";
 import type { User } from "../types/user";
 
 interface UserTableProps {
@@ -7,6 +8,8 @@ interface UserTableProps {
 
 export const UserTable: React.FC<UserTableProps> = ({ users, onUserClick }) => {
   return (
+    <React.Fragment>
+
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white border border-gray-200">
         <thead>
@@ -35,5 +38,6 @@ export const UserTable: React.FC<UserTableProps> = ({ users, onUserClick }) => {
         </tbody>
       </table>
     </div>
+    </React.Fragment>
   );
 };

@@ -1,15 +1,13 @@
-
-import './App.css'
-import AppRoutes from './routes/AppRoutes'
+import React from "react";
+import "./App.css";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-
-
   return (
-    <div className="App">
-    <AppRoutes />
-  </div>
-  )
+    <React.Fragment>
+      <AppRoutes />
+    </React.Fragment>
+  );
 }
 
-export default App
+export default App;
