@@ -36,56 +36,62 @@ const Home = () => {
   );
   return (
     <React.Fragment>
-     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header Section */}
-        <header className="mb-8">
-          <div className="flex items-center space-x-3 mb-2">
-            <FiUsers className="text-3xl text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-800">User Dashboard</h1>
-          </div>
-          <p className="text-gray-600">Manage and explore your user database</p>
-        </header>
-
-        {/* Filter Controls */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <SearchInput />
-            <RoleFilter />
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className=" overflow-hidden ">
-          {isLoading ? (
-            <div className="flex flex-col items-center justify-center p-12">
-              <FiLoader className="animate-spin text-4xl text-blue-500 mb-4" />
-              <p className="text-gray-600">Loading user data...</p>
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <div className="container mx-auto px-4 py-8 flex-1 flex flex-col">
+          {/* Header Section */}
+          <header className="mb-8">
+            <div className="flex items-center space-x-3 mb-2">
+              <FiUsers className="text-3xl text-blue-600" />
+              <h1 className="text-3xl font-bold text-gray-800">
+                User Dashboard
+              </h1>
             </div>
-          ) : (
-            <>
-              <UserTable 
-                users={paginatedUsers} 
-                onUserClick={setSelectedUser} 
-              />
-              <div className="px-6 py-4 border-t border-gray-100">
-                <Pagination
-                  totalItems={filteredUsers.length}
-                  itemsPerPage={itemsPerPage}
-                />
-              </div>
-            </>
-          )}
-        </div>
+            <p className="text-gray-600">
+              Manage and explore your user database
+            </p>
+          </header>
+          {/* Filter Controls */}
+          <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SearchInput />
+              <RoleFilter />
+            </div>
+          </div>
 
-        {/* User Modal */}
-        <UserModal
-          isOpen={!!selectedUser}
-          onRequestClose={() => setSelectedUser(null)}
-          user={selectedUser}
-        />
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center p-12">
+                <FiLoader className="animate-spin text-4xl text-blue-500 mb-4" />
+                <p className="text-gray-600">Loading user data...</p>
+              </div>
+            ) : (
+              <div className="flex-1 flex flex-col">
+                <div className="flex-1 overflow-y-auto">
+                  <UserTable
+                    users={paginatedUsers}
+                    onUserClick={setSelectedUser}
+                  />
+                </div>
+
+                <div className="px-6 py-4 border-t border-gray-300  sticky bottom-0">
+                  <Pagination
+                    totalItems={filteredUsers.length}
+                    itemsPerPage={itemsPerPage}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* User Modal */}
+          <UserModal
+            isOpen={!!selectedUser}
+            onRequestClose={() => setSelectedUser(null)}
+            user={selectedUser}
+          />
+        </div>
       </div>
-    </div>
     </React.Fragment>
   );
 };
