@@ -1,5 +1,6 @@
 import React from "react";
 import type { User } from "../types/user";
+import { FiBriefcase, FiMail, FiPhone, FiShield, FiUser } from "react-icons/fi";
 
 interface UserTableProps {
   users: User[];
@@ -10,33 +11,90 @@ export const UserTable: React.FC<UserTableProps> = ({ users, onUserClick }) => {
   return (
     <React.Fragment>
 
-    <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="py-2 px-4 border-b text-left">Name</th>
-            <th className="py-2 px-4 border-b text-left">Email</th>
-            <th className="py-2 px-4 border-b text-left">Phone</th>
-            <th className="py-2 px-4 border-b text-left">Company</th>
-            <th className="py-2 px-4 border-b text-left">Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr
-              key={user.id}
-              onClick={() => onUserClick(user)}
-              className="hover:bg-gray-50 cursor-pointer"
-            >
-              <td className="py-2 px-4 border-b">{user.name}</td>
-              <td className="py-2 px-4 border-b">{user.email}</td>
-              <td className="py-2 px-4 border-b">{user.phone}</td>
-              <td className="py-2 px-4 border-b">{user.company.name}</td>
-              <td className="py-2 px-4 border-b">{user.role}</td>
+<div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2">
+                  <FiUser className="text-gray-400" />
+                  <span>Name</span>
+                </div>
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2">
+                  <FiMail className="text-gray-400" />
+                  <span>Email</span>
+                </div>
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2">
+                  <FiPhone className="text-gray-400" />
+                  <span>Phone</span>
+                </div>
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2">
+                  <FiBriefcase className="text-gray-400" />
+                  <span>Company</span>
+                </div>
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div className="flex items-center gap-2">
+                  <FiShield className="text-gray-400" />
+                  <span>Role</span>
+                </div>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {users.map((user) => (
+              <tr
+                key={user.id}
+                onClick={() => onUserClick(user)}
+                className="hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
+              >
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm font-medium text-gray-900">
+                    {user.name}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-600">{user.email}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-600">{user.phone}</div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-600">
+                    {user.company.name}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      user.role === "admin"
+                        ? "bg-purple-100 text-purple-800"
+                        : user.role === "user"
+                        ? "bg-blue-100 text-blue-800"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
+                  >
+                    {user.role}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      {users.length === 0 && (
+        <div className="bg-white p-8 text-center">
+          <div className="text-gray-500">No users found</div>
+        </div>
+      )}
     </div>
     </React.Fragment>
   );

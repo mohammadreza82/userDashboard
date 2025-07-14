@@ -7,6 +7,7 @@ import { RoleFilter } from "../components/RoleFilter";
 import { UserTable } from "../components/UserTable";
 import { Pagination } from "../components/Pagination";
 import { UserModal } from "../components/UserModal";
+import { FiUsers, FiLoader } from "react-icons/fi";
 
 // Define a functional component called Home
 const Home = () => {
@@ -35,29 +36,56 @@ const Home = () => {
   );
   return (
     <React.Fragment>
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
-        <div className="flex space-x-4 mb-4">
-          <SearchInput />
-          <RoleFilter />
+     <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header Section */}
+        <header className="mb-8">
+          <div className="flex items-center space-x-3 mb-2">
+            <FiUsers className="text-3xl text-blue-600" />
+            <h1 className="text-3xl font-bold text-gray-800">User Dashboard</h1>
+          </div>
+          <p className="text-gray-600">Manage and explore your user database</p>
+        </header>
+
+        {/* Filter Controls */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SearchInput />
+            <RoleFilter />
+          </div>
         </div>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <>
-            <UserTable users={paginatedUsers} onUserClick={setSelectedUser} />
-            <Pagination
-              totalItems={filteredUsers.length}
-              itemsPerPage={itemsPerPage}
-            />
-          </>
-        )}
+
+        {/* Main Content */}
+        <div className=" overflow-hidden ">
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center p-12">
+              <FiLoader className="animate-spin text-4xl text-blue-500 mb-4" />
+              <p className="text-gray-600">Loading user data...</p>
+            </div>
+          ) : (
+            <>
+              <UserTable 
+                users={paginatedUsers} 
+                onUserClick={setSelectedUser} 
+              />
+              <div className="px-6 py-4 border-t border-gray-100">
+                <Pagination
+                  totalItems={filteredUsers.length}
+                  itemsPerPage={itemsPerPage}
+                />
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* User Modal */}
         <UserModal
           isOpen={!!selectedUser}
           onRequestClose={() => setSelectedUser(null)}
           user={selectedUser}
         />
       </div>
+    </div>
     </React.Fragment>
   );
 };

@@ -62,13 +62,12 @@ describe('Home Component', () => {
 
   describe('Loading State', () => {
     it('should show loading indicator', () => {
-      // Mock the useUsers hook to return an empty list and set isLoading to true
+      // Override the mock to return isLoading: true
       mockUseUsers.mockReturnValue({
         data: [],
         isLoading: true,
       });
-
-      // Render the Home component with the QueryClientProvider and BrowserRouter
+    
       render(
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
@@ -77,8 +76,8 @@ describe('Home Component', () => {
         </QueryClientProvider>
       );
       
-      // Check if the loading indicator is rendered
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      // تغییر این خط
+      expect(screen.getByText('Loading user data...')).toBeInTheDocument();
     });
   });
 });
