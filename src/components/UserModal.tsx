@@ -26,6 +26,10 @@ export const UserModal: React.FC<UserModalProps> = ({ isOpen, onRequestClose, us
     >
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">{user.name}</h2>
       <div className="space-y-4 text-gray-700">
+      <p className="flex items-center">
+          <span className="font-medium w-24">Name:</span>
+          <span>{user.name}</span>
+        </p>
         <p className="flex items-center">
           <span className="font-medium w-24">Email:</span>
           <span>{user.email}</span>

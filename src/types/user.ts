@@ -8,3 +8,9 @@ export interface User {
     };
     role: 'admin' | 'user' | 'guest';
   }
+
+  export interface UserTableProps {
+    users: User[];
+    onUserClick: (user: User) => void;
+  }
+  
